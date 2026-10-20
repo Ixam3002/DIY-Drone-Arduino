@@ -2,10 +2,10 @@
 
 // Structure pour retourner les corrections des 4 moteurs
 struct CommandesMoteurs {
-  float f_corr_A;
-  float f_corr_B;
-  float f_corr_C;
-  float f_corr_D;
+  int16_t f_corr_A;
+  int16_t f_corr_B;
+  int16_t f_corr_C;
+  int16_t f_corr_D;
 };
 
 // Variables globales d'état du PID
