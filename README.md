@@ -1,19 +1,20 @@
 # Drone DIY
 
-Projet de conception et de réalisation d'un **drone stabilisé de A à Z**.
+**The goal of this project** is to design a drone from scratch. It contains the 3D design, electronic design, radio communication and code's developpment to stabilize the drone.
 
-Le projet comprend la conception électronique, la communication radio, la récupération des données de capteurs, la stabilisation ainsi que la conception de la structure en impression 3D.
+## Realization
 
-## Architecture
+### Numerical simulator
 
-### Télécommande
+First of all, we developped a numerical simulator based on physics equations (Solid Mechanics) to implement all drone's functionalities like the control system and also to test the remote control. This program is in Python's langage and consider all geometrical and caracteristical parameters (like the motor's strength).
 
-Les commandes sont récupérées depuis une **manette Xbox Series S** à l'aide d'un **ESP32-S3**, qui décode le protocole GIP.
 
-Les données sont ensuite transmises en UART à un **Arduino Micro**, qui communique avec le drone via un **nRF24L01+**.
+### Remote control
+
+We use a Xbox remote to control the drone, an ESP32-S3 is used to decode the GIP protocol. Then, data are transmited to a Arduino Micro by using an UART protocol. Finally, the remote communicate in radio to the drone via the nRF24L01+ module. 
 
 ```text
-Xbox Series S
+Xbox Remote
       │
       ▼
    ESP32-S3
@@ -23,31 +24,35 @@ Xbox Series S
       │
       │ nRF24L01+
       ▼
-     Radio
+     Drone
 ```
-
-> La raison du choix de cette architecture, plutôt que de connecter directement le nRF24L01+ à l'ESP32-S3, sera détaillée dans la documentation du projet.
 
 ### Drone
 
-L'électronique embarquée repose sur :
+The components for the embedded system are :
 
-| Composant | Fonction |
+| Components | Function |
 |---|---|
-| Arduino Micro | Contrôle du drone |
-| MPU6050 | Accéléromètre + gyroscope |
-| BMP180 | Mesure de l'altitude |
-| nRF24L01+ | Communication radio |
+| Arduino Micro | Micro controlor |
+| MPU6050 | Accelerometer + gyroscope |
+| BMP180 | measure the altimeter |
+| nRF24L01+ | Radio communication |
 
-## Simulation
+### Control system
 
-Avant les essais réels, un **simulateur de stabilité** a été développé afin de tester les algorithmes de stabilisation et le comportement du drone.
+The control system is based on cascaded PID which consist to :
+
+- an outer loop to calculate the angle error : ωref = Kpangle · (θref - θ)
+- an inner loop to consider the rotational speed : u = Kp · eω + Ki · ∫eω dt + Kd · (deω/dt)
+
+The control system scheme is as follow (picture) :
+
+
+
 
 ## Conception
 
-La structure du drone est conçue et fabriquée en **impression 3D**.
-
-Les modèles 3D, le code, le simulateur et la documentation sont disponibles dans ce dépôt.
+The drone's structure is designed on Onshape (link) and print in 3D.
 
 ## État du projet
 
